@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
                         } else {
                             conn.send_to_exchange(sellBond(currentId, 1001, sz));
                             sells.insert(currentId++);
-                        }
+                        }wesl
                     } else if (startsWith(tokens[0], {"OUT"})) {
                         int id = stoi(tokens[1]);
                         buys.erase(id);
@@ -49,7 +49,6 @@ int main(int argc, char *argv[]) {
                 clock_t time_end;
                 time_end = clock() + 10000 * CLOCKS_PER_SEC / 1000;
                 while (clock() < time_end);
-                return 0;
             }
         }
     }
