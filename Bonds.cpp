@@ -15,14 +15,15 @@ int main(int argc, char *argv[]) {
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
     cout << conn.read_from_exchange() << endl;
+
     int currentId = 1;
-    queue<string> q;
-    while (true) {
+    queue<pair<int, string>> q;
+    for (int cnt = 0; ; cnt++) {
         while (true) {
             try {
                 string line = conn.read_from_exchange();
-                while (!q.empty()) {
-                    conn.send_to_exchange(q.front());
+                while (!q.empty() && q.front().first + 5 < cnt) {
+                    conn.send_to_exchange(q.front().second);
                     q.pop();
                 }
                 vector<string> tokens = split(line, ' ');
@@ -32,10 +33,10 @@ int main(int argc, char *argv[]) {
                         int id = stoi(tokens[1]);
                         int sz = stoi(tokens[5]);
                         if (buys.count(id)) {
-                            q.push(buyBond(currentId, 999, sz));
+                            q.emplace(cnt, buyBond(currentId, 999, sz));
                             buys.insert(currentId++);
                         } else {
-                            q.push(sellBond(currentId, 1001, sz));
+                            q.emplace(cnt, sellBond(currentId, 1001, sz));
                             sells.insert(currentId++);
                         }
                     } else if (startsWith(tokens[0], {"OUT"})) {
@@ -51,9 +52,7 @@ int main(int argc, char *argv[]) {
                 }
             } catch (runtime_error &e) {
                 cout << "CRASH" << endl;
-                clock_t time_end;
-                time_end = clock() + 100 * CLOCKS_PER_SEC / 1000;
-                while (clock() < time_end);
+                return 0;
             }
         }
     }
