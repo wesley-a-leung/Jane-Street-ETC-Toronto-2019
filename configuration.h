@@ -27,13 +27,12 @@ private:
     1 = slower
     2 = empty
   */
-  static int const test_exchange_index = 2;
 public:
   std::string team_name;
   std::string exchange_hostname;
   int exchange_port;
   /* replace REPLACEME with your team name! */
-  Configuration(bool test_mode) : team_name("BOKRUGSSOCKS"){
+  Configuration(bool test_mode, int test_exchange_index) : team_name("BOKRUGSSOCKS"){
     exchange_port = 20000; /* Default text based port */
     if(true == test_mode) {
       exchange_hostname = "test-exch-" + team_name;
