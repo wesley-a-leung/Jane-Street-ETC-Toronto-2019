@@ -6,6 +6,7 @@ using namespace std;
 
 unordered_set<int> buys, sells;
 unordered_map<int, string> pending;
+double tol = 0.005;
 
 int main(int argc, char *argv[]) {
     assert(argc <= 3);
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
                     }
-                    conn.send_to_exchange(sellStock(currentId, (int) fairval * 1.02, 10, tokens[1]));
+                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 10, tokens[1]));
                     stockToSellID[tokens[1]] = currentId;
                     currentId++;
 
@@ -90,7 +91,7 @@ int main(int argc, char *argv[]) {
                     if (stockToBuyID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
                     }
-                    conn.send_to_exchange(buyStock(currentId, (int) fairval * 0.98, 10, tokens[1]));
+                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 10, tokens[1]));
                     stockToBuyID[tokens[1]] = currentId;
                     currentId++;
                 }
