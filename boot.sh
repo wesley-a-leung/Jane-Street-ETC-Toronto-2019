@@ -1,2 +1,2 @@
-while true; do ./Bonds 0; sleep 5; done
+while true; do ./Bonds1.o 0; sleep 0.1; done
 
