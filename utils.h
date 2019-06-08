@@ -67,7 +67,7 @@ std::pair<std::string, int> getBuyPrice(std::string line) {
     for (int i = 2; i < int(tokens.size()); i++) {
         if (tokens[i] == "BUY") isBuy = true;
         else if (tokens[i] == "SELL") isBuy = false;
-        else if (isBuy) price = std::max(price, std::stoi(split(tokens[i], ':')[1]));
+        else if (isBuy) price = std::max(price, std::stoi(split(tokens[i], ':')[0]));
     }
     return std::make_pair(stock, price);
 }
@@ -80,7 +80,7 @@ std::pair<std::string, int> getSellPrice(std::string line) {
     for (int i = 2; i < int(tokens.size()); i++) {
         if (tokens[i] == "BUY") isSell = false;
         else if (tokens[i] == "SELL") isSell = true;
-        else if (isSell) price = std::min(price, std::stoi(split(tokens[i], ':')[1]));
+        else if (isSell) price = std::min(price, std::stoi(split(tokens[i], ':')[0]));
     }
     return std::make_pair(stock, price);
 }
