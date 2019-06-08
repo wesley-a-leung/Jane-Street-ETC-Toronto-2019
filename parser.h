@@ -34,6 +34,7 @@ int fairvaluebook(string s){
 	pair<int, int> buy = tpp.first;
 	pair<int, int> sell = tpp.second;
 	int fairval = ((buy.first)/((double) buy.second) + (sell.first)/((double) sell.second))/2;
+	cout<<"fairvalbook: "<<fairval<<"\n";
 	return fairval;
 }
 
@@ -53,6 +54,7 @@ int fairvaluetrades(string s){
 		}
 		
 	}
+	cout<<"fairvaltt: "<<tt<<" fairval ttl"<<ttl<<'\n';
 	if(tt<50){ return fairvaluebook(s); }
 	else{return ttl/((double) tt);}
 }
