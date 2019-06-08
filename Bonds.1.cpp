@@ -77,9 +77,31 @@ int main(int argc, char *argv[]) {
             } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
                 cout << "On the line" << line << endl;
                 parse(line);
-                int fairval = fairvaluebook(tokens[1]);
+                int fairval;
+                if (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC") {
+                    fairval = fairvaluebook(tokens[1]);
+                } else {
+                    fairval = tradeETF(0, 0);
+                }
+
                 cout << "current fair value " << fairval << endl;
                 if (fairval != -1 && (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC")) {
+                    cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
+                    if (stockToSellID[tokens[1]]) {
+                        conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
+                    }
+                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 50, tokens[1]));
+                    stockToSellID[tokens[1]] = currentId;
+                    currentId++;
+
+                    cout << "stockToBuyID" << stockToBuyID[tokens[1]] << endl;
+                    if (stockToBuyID[tokens[1]]) {
+                        conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
+                    }
+                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 50, tokens[1]));
+                    stockToBuyID[tokens[1]] = currentId;
+                    currentId++;
+                } else if (fairval != -1 && token[1] == "XLF") {
                     cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
