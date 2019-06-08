@@ -76,19 +76,19 @@ int main(int argc, char *argv[]) {
             } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
                 parse(line);
                 
-                if (token[1] == "GS" || token[1] == "MS" || token[1] == "WFC") {
-                    if (!stockToSellID[token[1]]) {
-                        conn.send_to_exchange(cancel(stockToSellID[token[1]]))
+                if (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC") {
+                    if (!stockToSellID[tokens[1]]) {
+                        conn.send_to_exchange(cancel(stockToSellID[tokens[1]]))
                     }
-                    conn.send_to_exchange(sellStock(currentId, (int) fairvalue(token[1]) * 1.001, 10));
-                    stockToSellID[token[1]] = currentId;
+                    conn.send_to_exchange(sellStock(currentId, (int) fairvalue(tokens[1]) * 1.001, 10));
+                    stockToSellID[tokens[1]] = currentId;
                     currentId++;
 
-                    if (!stockToBuyID[token[1]]) {
+                    if (!stockToBuyID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToBuyID[token[1]]))
                     }
-                    conn.send_to_exchange(buyStock(currentId, (int) fairvalue(token[1]) * 1.001, 10));
-                    stockToBuyID[token[1]] = currentId;
+                    conn.send_to_exchange(buyStock(currentId, (int) fairvalue(tokens[1]) * 1.001, 10));
+                    stockToBuyID[tokens[1]] = currentId;
                     currentId++;
                 }
             }
