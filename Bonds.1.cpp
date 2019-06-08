@@ -77,6 +77,7 @@ int main(int argc, char *argv[]) {
                 parse(line);
                 
                 if (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC") {
+                    cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (!stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
                     }
@@ -84,6 +85,7 @@ int main(int argc, char *argv[]) {
                     stockToSellID[tokens[1]] = currentId;
                     currentId++;
 
+                    cout << "stockToBuyID" << stockToBuyID[tokens[1]] << endl;
                     if (!stockToBuyID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
                     }
