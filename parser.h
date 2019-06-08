@@ -30,7 +30,7 @@ pair<pair<int, int>, pair<int, int> > getsums(string s){
 }
 
 int fairvaluebook(string s){
-	pair<pair<int, int>, pair<int, int> > tpp = getsum(s);
+	pair<pair<int, int>, pair<int, int> > tpp = getsums(s);
 	pair<int, int> buy = tpp.first;
 	pair<int, int> sell = tpp.second;
 	int fairval = ((buy.first)/((double) buy.second) + (sell.first)/((double) sell.second))/2;
@@ -54,17 +54,17 @@ int fairvaluetrades(string s){
 		
 	}
 	if(tt<50){ return fairvaluebook(s); }
-	else{return ttl/(double tt);}
+	else{return ttl/((double) tt);}
 }
 
 int fairvalue(string s) {
 	return fairvaluetrades(s);
 }
-vector<pair<int, int> > vBuy(int fairval, string s, int num) {
+vector<pair<int, int> > vBuy(int fairval, string s, int nums) {
 	vector<pair<int, int> > ords;
 	for(auto it = (books[s].first).rbegin(); it!=(books[s].first).rend(); ++it) {
 		if(it->first>fairval) {
-			if(it->second > num) {ords.push_back({it->first, num}); break;}
+			if(it->second > nums) {ords.push_back({it->first, num}); break;}
 			else{ords.push_back({it->first, it->second}); nums-=it->second;}
 		}
 		else{
@@ -87,6 +87,72 @@ vector<pair<int, int> > vSell(int fairval, string s, int num) {
 	}
 	return ords;
 }
+int botm(string s, int num) {
+	map<int, int>* buy =  books[s].first;
+	long long int tt = 0;
+	for(auto it = buy.rbegin(); it!=buy.rend(); ++it){
+		if(num<it->second){
+			num-=it->second;
+			tt+= (it->first)*(it->second);
+		}
+		else{
+			tt+=(it->first)*(num);
+			num = 0;
+		}
+	}
+	if(num>0){return -1;}
+	return tt;
+}
+int topm(string s, int num) {
+	map<int, int>* sell =  books[s].second;
+	long long int tt = 0;
+	for(auto it = sell.begin(); it!=sell.end(); ++it){
+		if(num<it->second){
+			num-=it->second;
+			tt+= (it->first)*(it->second);
+		}
+		else{
+			tt+=(it->first)*(num);
+			num = 0;
+		}
+	}
+	if(num>0){return -1;}
+	return tt;
+}
+//3 bond
+//2 gs
+//3 ms
+//2 wfc 
+int gETCb(int num) {
+	int bnd = botm("BOND", 3*num);
+	if(bnd<0){ return -1;}
+	int gs = botm("GS", 2*num);
+	if(gs<0){ return -1; }
+	int ms = botm("MS", 3*num);
+	if(ms<0) {return -1; }
+	int wtc = botm("WFC", 2*num);
+	if(wtc<0){return -1; }
+	return bnd+gs+ms+wtc;
+}
+int gETCt(int num) {
+	int bnd = topm("BOND", 3*num);
+	if(bnd<0){ return -1;}
+	int gs = topm("GS", 2*num);
+	if(gs<0){ return -1; }
+	int ms = topm("MS", 3*num);
+	if(ms<0) {return -1; }
+	int wtc = topm("WFC", 2*num);
+	if(wtc<0){return -1; }
+	return bnd+gs+ms+wtc;
+}
+int tradeETF(int thresh, int num) {
+	int st = 1, wfb = gETCb(num), wft = gETCt(num), ETFb = botm("ETC", 10*num), ETFt = topm("ETC", 10*num);
+	if(wfb-ETFt > thresh){ return 1; } //we can sell wf for more than we can buy etf -> buy etf, sell wf
+	else if(ETFb-wft > thresh) { return -1;} //we can sell etf for more than we can buy wf ->buy wf, sell etf
+	else{return 0; } //it doesn't meet the threshold
+}
+
+
 
 int fairvalueV() {
 	int fairval = fairvaluebook("VALEBZ");
