@@ -15,9 +15,6 @@ int getvl(string s, int ind){
 	return a;
 }
 
-void fillOrder(string s) {
-	
-}
 pair<pair<int, int>, pair<int, int> > getsums(string s){ 
 	map<int, int>* buy =  books[s].first;
 	map<int, int>* sell =  books[s].second;
