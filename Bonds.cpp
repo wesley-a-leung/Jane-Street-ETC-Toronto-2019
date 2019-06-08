@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
             try {
                 string line = conn.read_from_exchange();
                 while (!q.empty() && q.front().first + 5 < cnt) {
+                    cout << "DEQUEUE" << endl;
                     conn.send_to_exchange(q.front().second);
                     q.pop();
                 }
@@ -48,6 +49,8 @@ int main(int argc, char *argv[]) {
                         buys.insert(currentId++);
                         conn.send_to_exchange(sellBond(currentId, 1001, 100));
                         sells.insert(currentId++);
+                    } else if (startsWith(tokens[0], {"CLOSE"})) {
+                        return 0;
                     }
                 }
             } catch (runtime_error &e) {
