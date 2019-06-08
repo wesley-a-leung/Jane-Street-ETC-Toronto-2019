@@ -33,6 +33,17 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
+    while (true) {
+        try {
+            string line = conn.read_from_exchange();
+            if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
+                cout << line << endl;
+            }
+        } catch (runtime_error &e) {
+            return 0;
+        }
+    }
+
 
     // std::vector<std::string> data;
     // data.push_back(std::string("HELLO"));
