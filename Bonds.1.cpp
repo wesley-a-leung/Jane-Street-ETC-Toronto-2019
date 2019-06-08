@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
             } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
                 cout << "On the line" << line << endl;
                 parse(line);
-                int fairvalue = fairvalue(token[1]);
+                int fairvalue = fairvalue(tokens[1]);
                 if (fairvalue != -1 && (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC")) {
                     cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (stockToSellID[tokens[1]]) {

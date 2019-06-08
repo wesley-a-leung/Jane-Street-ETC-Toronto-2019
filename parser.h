@@ -26,7 +26,7 @@ pair<pair<int, int>, pair<int, int> > getsums(string s){
 	for(auto it=sell.begin(); it!=sell.end(); ++it) {
 		tsell+= (it->second)*(it->first); nsell +=it->second;
 	}
-	cout<<"tbuy: "<<tbuy<" nbuy: "<<nbuy<<"tsell: "<<tsell<<" nsell: "<<nsell<<"\n";
+	cout<<"tbuy: "<<tbuy<<" nbuy: "<<nbuy<<"tsell: "<<tsell<<" nsell: "<<nsell<<"\n";
 	return {{tbuy, nbuy}, {tsell, nsell}};
 }
 
