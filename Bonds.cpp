@@ -3,7 +3,7 @@
 using namespace std;
 
 bool startsWith(const string &test, const vector<string> &check) {
-    for (auto &&s : check) if (check.substr(0, int(test.size())) == test) return true;
+    for (auto &&s : check) if (s.substr(0, int(test.size())) == test) return true;
     return false;
 }
 
