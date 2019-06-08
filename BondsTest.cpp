@@ -74,15 +74,15 @@ int main(int argc, char *argv[]) {
             }
             if (sellPrice["VALE"] < buyPrice["VALBZ"]) {
                 if (lastVAL == make_pair(-1, -1)) {
-                    pending[currentId] = buyStockConvert(currentId, sellPrice["VALE"], 10, "VALE");
+                    pending[currentId] = buyStock(currentId, sellPrice["VALE"], 10, "VALE");
                     lastVAL.first = currentId;
                     q.push(currentId++);
-                    pending[currentId] = sellStockConvert(currentId, buyPrice["VALBZ"], 10, "VALBZ");
+                    pending[currentId] = sellStock(currentId, buyPrice["VALBZ"], 10, "VALBZ");
                     lastVAL.second = currentId;
                     q.push(currentId++);
-                } else {
-                    cancel(lastVAL.first);
-                    cancel(lastVAL.second);
+                    pending[currentId] = sellConvert(currentId, 10, "VALE");
+                    lastVAL.second = currentId;
+                    q.push(currentId++);
                 }
             }
         } catch (runtime_error &e) {
