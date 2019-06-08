@@ -4,7 +4,7 @@ using namespace std;
 
 bool isEqualTo(const string &test, const vector<string> &check) {
     for (auto &&s : check) if (s == test) return true;
-    return;
+    return false;
 }
 
 int main(int argc, char *argv[]) {
