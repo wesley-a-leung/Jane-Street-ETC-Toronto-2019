@@ -12,8 +12,11 @@ int main(int argc, char *argv[]) {
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
     cout << conn.read_from_exchange() << endl;
-    conn.send_to_exchange(string("ADD 5 BOND BUY 1002 50"));
+    conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
     cout << conn.read_from_exchange() << endl;
+    conn.send_to_exchange(string("ADD 2 BOND SELL 1001 30"));
+
+
     // std::vector<std::string> data;
     // data.push_back(std::string("HELLO"));
     // data.push_back(config.team_name);
