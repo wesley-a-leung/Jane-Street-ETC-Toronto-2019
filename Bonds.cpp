@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
                     int id = stoi(tokens[1]);
                     pending.erase(id);                    
                 } else if (startsWith(tokens[0], {"REJECT"})) {
+                    int id = stoi(tokens[1]);
                     q.push(id);
                 }
             }
