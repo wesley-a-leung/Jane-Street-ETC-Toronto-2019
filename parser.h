@@ -16,8 +16,8 @@ int getvl(string s, int ind){
 }
 
 pair<pair<int, int>, pair<int, int> > getsums(string s){ 
-	map<int, int>* buy =  books[s].first;
-	map<int, int>* sell =  books[s].second;
+	map<int, int> buy =  books[s].first;
+	map<int, int> sell =  books[s].second;
 	long long int tsell = 0, tbuy = 0;
 	int nsell = 0, nbuy = 0;
 	for(auto it=buy.begin(); it!=buy.end(); ++it) {

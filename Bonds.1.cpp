@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
                     int id = stoi(tokens[1]);
                     q.push(id);
                 }
-            } else if (startsWith(tokens[0], {"BOOK", "TRADE"}){
+            } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
                 parse(line);
                 
                 if (token[1] == "GS" || token[1] == "MS" || token[1] == "WFC") {
