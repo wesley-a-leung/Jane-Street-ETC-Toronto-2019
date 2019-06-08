@@ -148,7 +148,7 @@ int gETCt(int num) {
 	if(wtc<0){return -1; }
 	return bnd+gs+ms+wtc;
 }
-vector<pair<string, vector< pair<int, int> > > > gvals(int vl, int num) {
+/*vector<pair<string, vector< pair<int, int> > > > gvals(int vl, int num) {
 	vector<pair<string, pair<int, int> > > tmp;
 	if(vl==-1) {
 		tmp.push_back({"BOND", vSell(99999999, "BOND", 3*num)});
@@ -166,7 +166,7 @@ vector<pair<string, vector< pair<int, int> > > > gvals(int vl, int num) {
 	}
 	return tmp;
 
-}
+}*/
 int tradeETF(int thresh, int num) {
 	int st = 1, wfb = gETCb(num), wft = gETCt(num), ETFb = botm("XLF", 10*num), ETFt = topm("XLF", 10*num);
 	if(!(wfb==-1 || ETFt ==-1)){
