@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
                         buys.erase(id);
                         sells.erase(id);
                     }
-                } else if (startsWith("OPEN")) {
+                } else if (startsWith(tokens[0], {"OPEN"})) {
                     conn.send_to_exchange(buyBond(currentId, 999, 100));
                     buys.insert(currentId++);
                     conn.send_to_exchange(sellBond(currentId, 1001, 100));
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
             } catch (runtime_error &e) {
                 cout << "CRASH" << endl;
                 clock_t time_end;
-                time_end = clock() + 10000 * CLOCKS_PER_SEC/1000;
+                time_end = clock() + 10000 * CLOCKS_PER_SEC / 1000;
                 while (clock() < time_end);
                 return 0;
             }
