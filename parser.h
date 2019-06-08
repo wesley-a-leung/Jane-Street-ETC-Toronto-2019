@@ -50,7 +50,7 @@ vector<pair<int, int> > vBuy(int fairval, string s, int num) {
 	}
 	return ords;
 }
-vector<pair<int, int> > vSell(int fairval) {
+vector<pair<int, int> > vSell(int fairval, string s, int num) {
 	vector<pair<int, int> > ords;
 	for(auto it = (books[s].first).begin(); it!=(books[s].first).end(); ++it) {
 		if(it->first<fairval) {
