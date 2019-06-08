@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
                     int id = stoi(tokens[1]);
                     int sz = stoi(tokens[5]);
                     if (buys.count(id)) {
-                        pending[currentId] = buyBond(currentId, 999, sz);
+                        pending[currentId] = buyBond(currentId, 998, sz);
                         q.push(currentId);
                         buys.insert(currentId++);
                     } else {
-                        pending[currentId] = sellBond(currentId, 1000, sz);
+                        pending[currentId] = sellBond(currentId, 1002, sz);
                         q.push(currentId);
                         sells.insert(currentId++);
                     }
@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
                     buys.erase(id);
                     sells.erase(id);
                 } else if (startsWith(tokens[0], {"OPEN"})) {
-                    conn.send_to_exchange(buyBond(currentId, 999, 100));
+                    conn.send_to_exchange(buyBond(currentId, 998, 100));
                     buys.insert(currentId++);
-                    conn.send_to_exchange(sellBond(currentId, 1000, 100));
+                    conn.send_to_exchange(sellBond(currentId, 1002, 100));
                     sells.insert(currentId++);
                 } else if (startsWith(tokens[0], {"CLOSE"})) {
                     cout << "CLOSE" << endl;
