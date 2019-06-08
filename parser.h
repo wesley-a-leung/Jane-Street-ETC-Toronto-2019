@@ -180,7 +180,7 @@ int tradeETF(int thresh, int num) {
 	if (gs == -1) return -1;
 	int ms = fairvaluebook("MS") * 3;
 	if (ms == -1) return -1;
-	int wfc = fairvaluebook("WFC") * 2
+	int wfc = fairvaluebook("WFC") * 2;
 	if (wfc == -1) return -1;
 	return (bond + gs + ms + wfc) / 10;
 }
