@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
                     conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 50, tokens[1]));
                     stockToBuyID[tokens[1]] = currentId;
                     currentId++;
-                } else if (fairval != -1 && token[1] == "XLF") {
+                } else if (fairval != -1 && tokens[1] == "XLF") {
                     cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
