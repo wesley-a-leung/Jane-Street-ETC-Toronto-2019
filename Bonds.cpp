@@ -16,7 +16,6 @@ int main(int argc, char *argv[]) {
     Connection conn(config);
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
-    return 0;
     cout << conn.read_from_exchange() << endl;
     conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
     while (true) {
