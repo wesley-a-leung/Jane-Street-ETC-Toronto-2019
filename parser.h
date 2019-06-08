@@ -79,7 +79,7 @@ vector<pair<int, int> > vSell(int fairval, string s, int num) {
 	for(auto it = (books[s].first).begin(); it!=(books[s].first).end(); ++it) {
 		if(it->first<fairval) {
 			if(it->second > num) {ords.push_back({it->first, num}); break;}
-			else{ords.push_back({it->first, it->second}); nums-=it->second;}
+			else{ords.push_back({it->first, it->second}); num-=it->second;}
 		}
 		else{
 			break;
@@ -179,22 +179,22 @@ void parse(string s){
 if(vale[1]<valbz[0]) {
 	buy vale, sell valebz
 }*/
-int main() {
-	string curr;
-	getline(cin, curr);
-	parse(curr);
-	getline(cin, curr);
-	parse(curr);
-	cout<<"dn\n";
-	for(auto it = books.begin(); it!=books.end(); ++it){
-		cout<<it->first<<'\n';
-		for(auto it2 = ((it->second).first).begin(); it2!=((it->second).first).end(); ++it2){
-			cout<<it2->first<<" "<<it2->second<<'\n';
-		}
-		cout<<"SELL\n";
-		for(auto it2 = ((it->second).second).begin(); it2!=((it->second).second).end(); ++it2){
-			cout<<it2->first<<" "<<it2->second<<'\n';
-		}
-	}
-	return 0;
-}
+// int main() {
+// 	string curr;
+// 	getline(cin, curr);
+// 	parse(curr);
+// 	getline(cin, curr);
+// 	parse(curr);
+// 	cout<<"dn\n";
+// 	for(auto it = books.begin(); it!=books.end(); ++it){
+// 		cout<<it->first<<'\n';
+// 		for(auto it2 = ((it->second).first).begin(); it2!=((it->second).first).end(); ++it2){
+// 			cout<<it2->first<<" "<<it2->second<<'\n';
+// 		}
+// 		cout<<"SELL\n";
+// 		for(auto it2 = ((it->second).second).begin(); it2!=((it->second).second).end(); ++it2){
+// 			cout<<it2->first<<" "<<it2->second<<'\n';
+// 		}
+// 	}
+// 	return 0;
+// }
