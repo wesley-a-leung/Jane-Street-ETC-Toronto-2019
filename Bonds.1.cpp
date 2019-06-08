@@ -6,7 +6,7 @@ using namespace std;
 
 unordered_set<int> buys, sells;
 unordered_map<int, string> pending;
-double tol = 0.005;
+double tol = 0.0005;
 
 int main(int argc, char *argv[]) {
     assert(argc <= 3);
