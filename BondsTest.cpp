@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
             }
             vector<string> tokens = split(line, ' ');
             if (tokens[0] != "BOOK" && tokens[0] != "TRADE") {
-                if (tokens[0] != "TRADE") cout << line << endl;
+                if (tokens[0] != "REJECT") cout << line << endl;
                 if (tokens[0] == "FILL") {
                     int id = stoi(tokens[1]);
                     int sz = stoi(tokens[5]);
