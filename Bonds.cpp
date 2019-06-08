@@ -16,10 +16,15 @@ int main(int argc, char *argv[]) {
     conn.send_to_exchange(string("HELLO ") + config.team_name);
     cout << conn.read_from_exchange() << endl;
     int currentId = 1;
+    queue<string> q;
     while (true) {
         while (true) {
             try {
                 string line = conn.read_from_exchange();
+                while (!q.empty()) {
+                    conn.send_to_exchange(q.front());
+                    q.pop();
+                }
                 vector<string> tokens = split(line, ' ');
                 if (!startsWith(tokens[0], {"BOOK", "TRADE"})) {
                     cout << line << endl;
@@ -27,10 +32,10 @@ int main(int argc, char *argv[]) {
                         int id = stoi(tokens[1]);
                         int sz = stoi(tokens[5]);
                         if (buys.count(id)) {
-                            conn.send_to_exchange(buyBond(currentId, 999, sz));
+                            q.push(buyBond(currentId, 999, sz));
                             buys.insert(currentId++);
                         } else {
-                            conn.send_to_exchange(sellBond(currentId, 1001, sz));
+                            q.push(sellBond(currentId, 1001, sz));
                             sells.insert(currentId++);
                         }
                     } else if (startsWith(tokens[0], {"OUT"})) {
@@ -47,7 +52,7 @@ int main(int argc, char *argv[]) {
             } catch (runtime_error &e) {
                 cout << "CRASH" << endl;
                 clock_t time_end;
-                time_end = clock() + 10000 * CLOCKS_PER_SEC / 1000;
+                time_end = clock() + 100 * CLOCKS_PER_SEC / 1000;
                 while (clock() < time_end);
             }
         }
