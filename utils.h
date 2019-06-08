@@ -41,8 +41,46 @@ std::string sellStock(int id, int price, int size, std::string stock) {
     return ret;
 }
 
+std::string buyStockConvert(int id, int price, int size, std::string stock) {
+    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " BUY " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::cout << ret << std::endl;
+    return ret;
+}
+
+std::string sellStockConvert(int id, int price, int size, std::string stock) {
+    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " SELL " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::cout << ret << std::endl;
+    return ret;
+}
+
 std::string cancel(int id) {
     std::cout << "Cancelling:  " << id << std::endl;
     std::string ret = "CANCEL " + std::to_string(id);
     return ret;
+}
+
+std::pair<std::string, int> getBuyPrice(std::string line) {
+    std::vector<std::string> tokens = split(line, ' ');
+    std::string stock = tokens[1];
+    bool isBuy = false;
+    int price = INT_MIN;
+    for (int i = 2; i < int(tokens.size()); i++) {
+        if (tokens[i] == "BUY") isBuy = true;
+        else if (tokens[i] == "SELL") isBuy = false;
+        else if (isBuy) price = std::max(price, std::stoi(split(tokens[i], ':')[1]));
+    }
+    return std::make_pair(stock, price);
+}
+
+std::pair<std::string, int> getSellPrice(std::string line) {
+    std::vector<std::string> tokens = split(line, ' ');
+    std::string stock = tokens[1];
+    bool isSell = false;
+    int price = INT_MAX;
+    for (int i = 2; i < int(tokens.size()); i++) {
+        if (tokens[i] == "BUY") isSell = false;
+        else if (tokens[i] == "SELL") isSell = true;
+        else if (isSell) price = std::min(price, std::stoi(split(tokens[i], ':')[1]));
+    }
+    return std::make_pair(stock, price);
 }
