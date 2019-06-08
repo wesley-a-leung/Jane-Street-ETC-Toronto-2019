@@ -2,6 +2,11 @@
 #include "configuration.h"
 using namespace std;
 
+bool isEqualTo(const string &test, const vector<string> &check) {
+    for (auto &&s : check) if (s == test) return true;
+    return;
+}
+
 int main(int argc, char *argv[]) {
     assert(argc <= 3);
     // Be very careful with this boolean! It switches between test and prod
@@ -11,6 +16,7 @@ int main(int argc, char *argv[]) {
     Connection conn(config);
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
+    return 0;
     cout << conn.read_from_exchange() << endl;
     conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
     while (true) {
