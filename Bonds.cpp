@@ -11,9 +11,9 @@ int main(int argc, char *argv[]) {
     Connection conn(config);
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
-    cout << conn.read_from_exchange();
+    cout << conn.read_from_exchange() << endl;
     conn.send_to_exchange(string("ADD 1 BOND BUY 995 10"));
-
+    cout << conn.read_from_exchange() << endl;
     // std::vector<std::string> data;
     // data.push_back(std::string("HELLO"));
     // data.push_back(config.team_name);
