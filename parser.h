@@ -26,7 +26,7 @@ pair<pair<int, int>, pair<int, int> > getsums(string s){
 	for(auto it=sell.begin(); it!=sell.end(); ++it) {
 		tsell+= (it->second)*(it->first); nsell +=it->second;
 	}
-	cout<<"tbuy: "<<tbuy<<" nbuy: "<<nbuy<<"tsell: "<<tsell<<" nsell: "<<nsell<<"\n";
+	// cout<<"tbuy: "<<tbuy<<" nbuy: "<<nbuy<<"tsell: "<<tsell<<" nsell: "<<nsell<<"\n";
 	return {{tbuy, nbuy}, {tsell, nsell}};
 }
 
@@ -36,7 +36,6 @@ int fairvaluebook(string s){
 	pair<int, int> sell = tpp.second;
 	if (buy.first== 0 || buy.first == 0 || buy.second == 0 || sell.second == 0) return -1;
 	int fairval = ((buy.first)/((double) buy.second) + (sell.first)/((double) sell.second))/2;
-	cout<<"fairvalbook: "<<fairval<<"\n";
 	return fairval;
 }
 
@@ -56,7 +55,7 @@ int fairvaluetrades(string s){
 		}
 		
 	}
-	cout<<"fairvaltt: "<<tt<<" fairval ttl"<<ttl<<'\n';
+	// cout<<"fairvaltt: "<<tt<<" fairval ttl"<<ttl<<'\n';
 	if(tt<50){ return fairvaluebook(s); }
 	else{return ttl/((double) tt);}
 }
@@ -216,7 +215,7 @@ void parse(string s){
     	((books[results[1]]).first).clear();
     	((books[results[1]]).second).clear();
     	for(int i = 2; i<results.size(); i++){
-    		cout<<results[i]<<'\n';
+    		// cout<<results[i]<<'\n';
     		if(results[i]=="BUY") {
     			buy(results, results[1], i+1);
 
