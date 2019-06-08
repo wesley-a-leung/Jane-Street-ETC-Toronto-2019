@@ -37,8 +37,28 @@ int fairvaluebook(string s){
 	return fairval;
 }
 
+int fairvaluetrades(string s){
+	int tt = 0;
+	long long int ttl = 0;
+	vector<pair<int, int> > tv = trades[s];
+	for(int i = 0; i<tv.size(); i++){
+		if(tt+tv[i].second>50){
+			ttl+=tv[i].first*(50-tt);
+			tt = 50;
+			break;
+		}
+		else{
+			ttl+=tv[i].first*tv[i].second;
+			tt+=tv[i].second;
+		}
+		
+	}
+	if(tt<50){ return fairvaluebook(s); }
+	else{return ttl/(double tt);}
+}
+
 int fairvalue(string s) {
-	return fairvaluebook(s);
+	return fairvaluetrades(s);
 }
 vector<pair<int, int> > vBuy(int fairval, string s, int num) {
 	vector<pair<int, int> > ords;
