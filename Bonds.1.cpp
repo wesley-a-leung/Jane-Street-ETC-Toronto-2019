@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
                     currentId++;
 
                     if (!stockToBuyID[tokens[1]]) {
-                        conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]))
+                        conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
                     }
                     conn.send_to_exchange(buyStock(currentId, (int) fairvalue(tokens[1]) * 0.999, 10, tokens[1]));
                     stockToBuyID[tokens[1]] = currentId;
