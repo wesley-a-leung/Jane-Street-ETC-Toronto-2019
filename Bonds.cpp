@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 #include "configuration.h"
+#include "utils.h"
 using namespace std;
 
-bool startsWith(const string &test, const vector<string> &check) {
-    for (auto &&s : check) if (test.substr(0, int(s.size())) == s) return true;
-    return false;
-}
+unordered_set<int> buys, sells;
 
 int main(int argc, char *argv[]) {
     assert(argc <= 3);
@@ -17,31 +15,46 @@ int main(int argc, char *argv[]) {
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
     cout << conn.read_from_exchange() << endl;
-    conn.send_to_exchange(string("ADD 1 BOND BUY 999 100"));
+    int currentId = 1;
+    queue<string> q;
     while (true) {
-        string line = conn.read_from_exchange();
-        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
-            cout << line << endl;
-            break;
-        }
-    }
-    conn.send_to_exchange(string("ADD 2 BOND SELL 1001 100"));
-    while (true) {
-        string line = conn.read_from_exchange();
-        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
-            cout << line << endl;
-            break;
-        }
-    }
-    while (true) {
-        try {
-            string line = conn.read_from_exchange();
-            if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
-                cout << line << endl;
+        while (true) {
+            try {
+                string line = conn.read_from_exchange();
+                while (!q.empty()) {
+                    conn.send_to_exchange(q.front());
+                    q.pop();
+                }
+                vector<string> tokens = split(line, ' ');
+                if (!startsWith(tokens[0], {"BOOK", "TRADE"})) {
+                    cout << line << endl;
+                    if (startsWith(tokens[0], {"FILL"})) {
+                        int id = stoi(tokens[1]);
+                        int sz = stoi(tokens[5]);
+                        if (buys.count(id)) {
+                            q.push(buyBond(currentId, 999, sz));
+                            buys.insert(currentId++);
+                        } else {
+                            q.push(sellBond(currentId, 1001, sz));
+                            sells.insert(currentId++);
+                        }
+                    } else if (startsWith(tokens[0], {"OUT"})) {
+                        int id = stoi(tokens[1]);
+                        buys.erase(id);
+                        sells.erase(id);
+                    } else if (startsWith(tokens[0], {"OPEN"})) {
+                        conn.send_to_exchange(buyBond(currentId, 999, 100));
+                        buys.insert(currentId++);
+                        conn.send_to_exchange(sellBond(currentId, 1001, 100));
+                        sells.insert(currentId++);
+                    }
+                }
+            } catch (runtime_error &e) {
+                cout << "CRASH" << endl;
+                clock_t time_end;
+                time_end = clock() + 100 * CLOCKS_PER_SEC / 1000;
+                while (clock() < time_end);
             }
-        } catch (runtime_error &e) {
-            assert(false && "Exchange Crashed");
-            return 0;
         }
     }
     return 0;
