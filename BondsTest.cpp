@@ -76,16 +76,16 @@ int main(int argc, char *argv[]) {
                 buyPrice[bp.first] = bp.second;
                 sellPrice[sp.first] = sp.second;
             }
-            if (sellPrice.count("VALE") && buyPrice.count("VALBZ") && sellPrice["VALE"] < buyPrice["VALBZ"]) {
-                if (lastVAL == make_pair(-1, -1)) {
-                    pending[currentId] = buyStock(currentId, sellPrice["VALE"], 10, "VALE");
-                    lastVAL.first = currentId;
-                    q.push(currentId++);
-                    pending[currentId] = sellStock(currentId, buyPrice["VALBZ"], 10, "VALBZ");
-                    lastVAL.second = currentId;
-                    q.push(currentId++);
-                }
-            }
+            // if (sellPrice.count("VALE") && buyPrice.count("VALBZ") && sellPrice["VALE"] < buyPrice["VALBZ"]) {
+            //     if (lastVAL == make_pair(-1, -1)) {
+            //         pending[currentId] = buyStock(currentId, sellPrice["VALE"], 10, "VALE");
+            //         lastVAL.first = currentId;
+            //         q.push(currentId++);
+            //         pending[currentId] = sellStock(currentId, buyPrice["VALBZ"], 10, "VALBZ");
+            //         lastVAL.second = currentId;
+            //         q.push(currentId++);
+            //     }
+            // }
         } catch (runtime_error &e) {
             cout << "CRASH" << endl;
             return 0;
