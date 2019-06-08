@@ -17,9 +17,13 @@ bool startsWith(const std::string &test, const std::vector<std::string> &check) 
 }
 
 std::string buyBond(int id, int price, int size) {
-    return std::string("ADD ") + std::to_string(id) + " BOND BUY " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::string ret = std::string("ADD ") + std::to_string(id) + " BOND BUY " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::cout << ret << std::endl;
+    return ret;
 }
 
 std::string sellBond(int id, int price, int size) {
-    return std::string("ADD ") + std::to_string(id) + " BOND SELL " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::string ret = std::string("ADD ") + std::to_string(id) + " BOND SELL " + std::to_string(price) + std::string(" ") + std::to_string(size);
+    std::cout << ret << std::endl;
+    return ret;
 }
