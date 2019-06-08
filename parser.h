@@ -34,6 +34,7 @@ int fairvaluebook(string s){
 	pair<pair<int, int>, pair<int, int> > tpp = getsums(s);
 	pair<int, int> buy = tpp.first;
 	pair<int, int> sell = tpp.second;
+	if (buy.first== 0 || buy.first == 0 || buy.second == 0 || sell.second == 0) return -1;
 	int fairval = ((buy.first)/((double) buy.second) + (sell.first)/((double) sell.second))/2;
 	cout<<"fairvalbook: "<<fairval<<"\n";
 	return fairval;
