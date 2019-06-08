@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
             try {
                 string line = conn.read_from_exchange();
                 vector<string> tokens = split(line, ' ');
-                if (!startsWith(tokens[0], {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
+                if (!startsWith(tokens[0], {"BOOK", "TRADE"})) {
                     cout << line << endl;
                     if (startsWith(tokens[0], {"FILL"})) {
                         int id = stoi(tokens[1]);
@@ -37,12 +37,12 @@ int main(int argc, char *argv[]) {
                         int id = stoi(tokens[1]);
                         buys.erase(id);
                         sells.erase(id);
+                    } else if (startsWith(tokens[0], {"OPEN"})) {
+                        conn.send_to_exchange(buyBond(currentId, 999, 100));
+                        buys.insert(currentId++);
+                        conn.send_to_exchange(sellBond(currentId, 1001, 100));
+                        sells.insert(currentId++);
                     }
-                } else if (startsWith(tokens[0], {"OPEN"})) {
-                    conn.send_to_exchange(buyBond(currentId, 999, 100));
-                    buys.insert(currentId++);
-                    conn.send_to_exchange(sellBond(currentId, 1001, 100));
-                    sells.insert(currentId++);
                 }
             } catch (runtime_error &e) {
                 cout << "CRASH" << endl;
