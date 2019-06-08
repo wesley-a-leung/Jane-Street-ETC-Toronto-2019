@@ -102,8 +102,8 @@ int main(int argc, char *argv[]) {
                     stockToBuyID[tokens[1]] = currentId;
                     currentId++;
                 } else if (fairval != -1 && tokens[1] == "XLF") {
-                    cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
-                } 
+                    // cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
+
                     //cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
