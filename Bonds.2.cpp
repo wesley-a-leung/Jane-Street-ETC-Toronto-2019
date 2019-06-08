@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
                 parse(line);
                 int fairval = fairvaluebook(tokens[1]);
                 cout << "current fair value " << fairval << endl;
-                if (fairval != -1 && (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC")) {
+                if (fairval != -1 && (tokens[1] == "XLF")) {
                     cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
