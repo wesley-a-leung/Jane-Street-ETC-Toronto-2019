@@ -13,6 +13,9 @@ int main(int argc, char *argv[]) {
     Configuration config(test_mode, test_exchange_index);
     Connection conn(config);
 
+    conn.send_to_exchange(string("HELLO ") + config.team_name);
+    cout << conn.read_from_exchange() << endl;
+
     int currentId = 1;
     queue<pair<int, string>> q;
     for (int cnt = 0; ; cnt++) {
