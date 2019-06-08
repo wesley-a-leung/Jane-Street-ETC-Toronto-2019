@@ -37,6 +37,37 @@ int fairvaluebook(string s){
 	return fairval;
 }
 
+vector<pair<int, int> > vBuy(int fairval, string s, int num) {
+	vector<pair<int, int> > ords;
+	for(auto it = (books[s].first).rbegin(); it!=(books[s].first).rend(); ++it) {
+		if(it->first>fairval) {
+			if(it->second > num) {ords.push_back({it->first, num}); break;}
+			else{ords.push_back({it->first, it->second}); nums-=it->second;}
+		}
+		else{
+			break;
+		}
+	}
+	return ords;
+}
+vector<pair<int, int> > vSell(int fairval) {
+	vector<pair<int, int> > ords;
+	for(auto it = (books[s].first).begin(); it!=(books[s].first).end(); ++it) {
+		if(it->first<fairval) {
+			if(it->second > num) {ords.push_back({it->first, num}); break;}
+			else{ords.push_back({it->first, it->second}); nums-=it->second;}
+		}
+		else{
+			break;
+		}
+	}
+	return ords;
+}
+
+int fairvalueVALE() {
+
+}
+
 
 pair<int, int> addp(string vl) {
 	for(int i = 0; i<vl.size(); i++){
