@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
                 if (!startsWith(tokens[0], {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
                     cout << line << endl;
                     if (startsWith(tokens[0], {"FILL"})) {
+                        assert(false);
                         int id = stoi(tokens[1]);
                         int sz = stoi(tokens[5]);
                         if (buys.count(id)) {
@@ -45,7 +46,10 @@ int main(int argc, char *argv[]) {
                     sells.insert(currentId++);
                 }
             } catch (runtime_error &e) {
-                assert(false && "Exchange Crashed");
+                cout << "CRASH" << endl;
+                clock_t time_end;
+                time_end = clock() + 10000 * CLOCKS_PER_SEC/1000;
+                while (clock() < time_end);
                 return 0;
             }
         }
