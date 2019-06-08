@@ -5,6 +5,7 @@ map<string, pair<map<int, int>, map<int, int> > > books;
 map<string, vector<pair<int, int> > > trades;
 map<string, bool> open;
 
+
 int getvl(string s, int ind){
 	int a = 0;
 	for(int i = ind; i<s.size(); i++){
@@ -13,6 +14,29 @@ int getvl(string s, int ind){
 	}
 	return a;
 }
+pair<pair<int, int>, pair<int, int> > getsums(string s){ 
+	map<int, int>* buy =  books[s].first;
+	map<int, int>* sell =  books[s].second;
+	long long int tsell = 0, tbuy = 0;
+	int nsell = 0, nbuy = 0;
+	for(auto it=buy.begin(); it!=buy.end(); ++it) {
+		tbuy+= (it->second)*(it->first); nsell +=it->second;
+	}
+	for(auto it=sell.begin(); it!=sell.end(); ++it) {
+		tsell+= (it->second)*(it->first); nsell +=it->second;
+	}
+	return {{tbuy, nbuy}, {tsell, nsell}};
+}
+
+int fairvaluebook(string s){
+	pair<pair<int, int>, pair<int, int> > tpp = getsum(s);
+	pair<int, int> buy = tpp.first;
+	pair<int, int> sell = tpp.second;
+	int fairval = ((buy.first)/((double) buy.second) + (sell.first)/((double) sell.second))/2;
+	return fairval;
+}
+
+
 pair<int, int> addp(string vl) {
 	for(int i = 0; i<vl.size(); i++){
 		if(vl[i]==':') {
@@ -77,6 +101,9 @@ void parse(string s){
     }
     if(results[0]=="CLOSE") {
     	mkopen(results, 1, 0);
+    }
+    if(results[0]=="FILL") {
+
     }
 
 
