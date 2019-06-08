@@ -64,7 +64,8 @@ vector<pair<int, int> > vSell(int fairval) {
 	return ords;
 }
 
-int fairvalueVALE() {
+int fairvalueV() {
+	int fairval = fairvaluebook("VALEBZ");
 
 }
 
