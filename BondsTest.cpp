@@ -50,7 +50,11 @@ int main(int argc, char *argv[]) {
                     int id = stoi(tokens[1]);
                     buys.erase(id);
                     sells.erase(id);
-                    if (id == lastVAL.first) lastVAL.first = -1;
+                    if (id == lastVAL.first) {
+                        lastVAL.first = -1;
+                        pending[currentId] = sellConvert(currentId, 10, "VALE");
+                        q.push(currentId++);
+                    }
                     if (id == lastVAL.second) lastVAL.second = -1;
                 } else if (tokens[0] == "OPEN") {
                     conn.send_to_exchange(buyBond(currentId, 999, 100));
@@ -59,7 +63,7 @@ int main(int argc, char *argv[]) {
                     sells.insert(currentId++);
                 } else if (tokens[0] == "CLOSE") {
                     return 0;
-                } else if (tokens[0] == "FILL") {
+                } else if (tokens[0] == "ACK") {
                     int id = stoi(tokens[1]);
                     pending.erase(id);                    
                 } else if (tokens[0] == "REJECT") {
@@ -80,9 +84,6 @@ int main(int argc, char *argv[]) {
                     pending[currentId] = sellStock(currentId, buyPrice["VALBZ"], 10, "VALBZ");
                     lastVAL.second = currentId;
                     q.push(currentId++);
-                    // pending[currentId] = sellConvert(currentId, 10, "VALE");
-                    // lastVAL.second = currentId;
-                    // q.push(currentId++);
                 }
             }
         } catch (runtime_error &e) {
