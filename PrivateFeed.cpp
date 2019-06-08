@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     while (true) {
         try {
             string line = conn.read_from_exchange();
-            if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
+            if (!startsWith(line, {"BOOK", "TRADE"})) {
                 cout << line << endl;
             }
         } catch (runtime_error &e) {

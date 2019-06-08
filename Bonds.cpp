@@ -4,6 +4,7 @@
 using namespace std;
 
 unordered_set<int> buys, sells;
+unordered_map<int, string> pending;
 
 int main(int argc, char *argv[]) {
     assert(argc <= 3);
@@ -17,13 +18,12 @@ int main(int argc, char *argv[]) {
     cout << conn.read_from_exchange() << endl;
 
     int currentId = 1;
-    queue<pair<int, string>> q;
+    queue<int> q;
     for (int cnt = 0; ; cnt++) {
         try {
             string line = conn.read_from_exchange();
-            while (!q.empty() && q.front().first + 5 < cnt) {
-                cout << "DEQUEUE" << endl;
-                conn.send_to_exchange(q.front().second);
+            while (!q.empty()) {
+                conn.send_to_exchange(pending[q.front()]);
                 q.pop();
             }
             vector<string> tokens = split(line, ' ');
@@ -33,10 +33,12 @@ int main(int argc, char *argv[]) {
                     int id = stoi(tokens[1]);
                     int sz = stoi(tokens[5]);
                     if (buys.count(id)) {
-                        q.emplace(cnt, buyBond(currentId, 999, sz));
+                        pending[currentId] = buyBond(currentId, 999, sz);
+                        q.push(currentId);
                         buys.insert(currentId++);
                     } else {
-                        q.emplace(cnt, sellBond(currentId, 1001, sz));
+                        pending[currentId] = sellBond(currentId, 1001, sz);
+                        q.push(currentId);
                         sells.insert(currentId++);
                     }
                 } else if (startsWith(tokens[0], {"OUT"})) {
@@ -51,6 +53,11 @@ int main(int argc, char *argv[]) {
                 } else if (startsWith(tokens[0], {"CLOSE"})) {
                     cout << "CLOSE" << endl;
                     return 0;
+                } else if (startsWith(tokens[0], {"ACK"})) {
+                    int id = stoi(tokens[1]);
+                    pending.erase(id);                    
+                } else if (startsWith(tokens[0], {"REJECT"})) {
+                    q.push(id);
                 }
             }
         } catch (runtime_error &e) {
