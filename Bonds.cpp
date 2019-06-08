@@ -2,8 +2,8 @@
 #include "configuration.h"
 using namespace std;
 
-bool isEqualTo(const string &test, const vector<string> &check) {
-    for (auto &&s : check) if (s == test) return true;
+bool startsWith(const string &test, const vector<string> &check) {
+    for (auto &&s : check) if (check.substr(0, int(test.size())) == test) return true;
     return false;
 }
 
@@ -21,12 +21,12 @@ int main(int argc, char *argv[]) {
     conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
     while (true) {
         string line = conn.read_from_exchange();
-        if (line[0] != 'B' || line[0] != 'T' || line[0] != 'C' || (line[0] != 'O' && line[1] != 'P')) cout << line << endl;
+        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) cout << line << endl;
     }
     conn.send_to_exchange(string("ADD 2 BOND SELL 1001 30"));
     while (true) {
         string line = conn.read_from_exchange();
-        if (line[0] != 'B' || line[0] != 'T' || line[0] != 'C' || (line[0] != 'O' && line[1] != 'P')) cout << line << endl;
+        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) cout << line << endl;
     }
 
     // std::vector<std::string> data;
