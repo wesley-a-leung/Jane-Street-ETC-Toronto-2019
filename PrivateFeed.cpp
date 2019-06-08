@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
                 cout << line << endl;
             }
         } catch (runtime_error &e) {
+            assert(false, "Exchange Crashed");
             return 0;
         }
     }
