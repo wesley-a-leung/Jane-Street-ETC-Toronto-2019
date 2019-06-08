@@ -74,6 +74,7 @@ int main(int argc, char *argv[]) {
                     q.push(id);
                 }
             } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
+                cout << "On the line" << line << endl;
                 parse(line);
                 
                 if (tokens[1] == "GS" || tokens[1] == "MS" || tokens[1] == "WFC") {
