@@ -79,7 +79,7 @@ vector<pair<int, int> > vBuy(int fairval, string s, int nums) {
 
 vector<pair<int, int> > vSell(int fairval, string s, int num) {
 	vector<pair<int, int> > ords;
-	for(auto it = (books[s].first).begin(); it!=(books[s].first).end(); ++it) {
+	for(auto it = (books[s].second).begin(); it!=(books[s].second).end(); ++it) {
 		if(it->first<fairval) {
 			if(it->second > num) {ords.push_back({it->first, num}); break;}
 			else{ords.push_back({it->first, it->second}); num-=it->second;}
@@ -148,14 +148,34 @@ int gETCt(int num) {
 	if(wtc<0){return -1; }
 	return bnd+gs+ms+wtc;
 }
+vector<pair<string, vector< pair<int, int> > > > gvals(int vl, int num) {
+	vector<pair<string, pair<int, int> > > tmp;
+	if(vl==-1) {
+		tmp.push_back({"BOND", vSell(99999999, "BOND", 3*num)});
+		tmp.push_back({"GS", vSell(99999999, "GS", 2*num)});
+		tmp.push_back({"MS", vSell(99999999, "MS", 3*num)});
+		tmp.push_back({"WFC", vSell(99999999, "WFC", 2*num)});
+		tmp.push_back({"XLF", vBuy(0, "XLF", 10*num)});
+	}
+	else if(vl==1) {
+		tmp.push_back({"BOND", vBuy(0, "BOND", 3*num)});
+		tmp.push_back({"GS", vBuy(0, "GS", 2*num)});
+		tmp.push_back({"MS", vBuy(0, "MS", 3*num)});
+		tmp.push_back({"WFC",vBuy(0, "WFC", 2*num)});
+		tmp.push_back({"XLF", vSell(99999999, "XLF", 10*num)});
+	}
+	return tmp;
+
+}
 int tradeETF(int thresh, int num) {
-	int st = 1, wfb = gETCb(num), wft = gETCt(num), ETFb = botm("ETC", 10*num), ETFt = topm("ETC", 10*num);
+	int st = 1, wfb = gETCb(num), wft = gETCt(num), ETFb = botm("XLF", 10*num), ETFt = topm("XLF", 10*num);
 	if(!(wfb==-1 || ETFt ==-1)){
 		if(wfb-ETFt > thresh){ return 1; } //we can sell wf for more than we can buy etf -> buy etf, sell wf
 	}
 	else if((!(ETFb==-1 || wft==-1)) &&(ETFb-wft > thresh)) { return -1;} //we can sell etf for more than we can buy wf ->buy wf, sell etf
 	else{return 0; } //it doesn't meet the threshold
 }
+
 
 
 
