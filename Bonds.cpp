@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
                     conn.send_to_exchange(sellBond(currentId, 1001, 100));
                     sells.insert(currentId++);
                 } else if (startsWith(tokens[0], {"CLOSE"})) {
+                    cout << "CLOSE" << endl;
                     return 0;
                 }
             }
