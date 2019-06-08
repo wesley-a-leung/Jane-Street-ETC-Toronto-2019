@@ -64,8 +64,8 @@ vector<pair<int, int> > vBuy(int fairval, string s, int nums) {
 	vector<pair<int, int> > ords;
 	for(auto it = (books[s].first).rbegin(); it!=(books[s].first).rend(); ++it) {
 		if(it->first>fairval) {
-			if(it->second > nums) {ords.push_back({it->first, num}); break;}
-			else{ords.push_back({it->first, it->second}); nums-=it->second;}
+			if(it->second > nums) {ords.push_back(make_pair(it->first, nums)); break;}
+			else{ords.push_back(make_pair(it->first, it->second)); nums-=it->second;}
 		}
 		else{
 			break;
@@ -88,7 +88,7 @@ vector<pair<int, int> > vSell(int fairval, string s, int num) {
 	return ords;
 }
 int botm(string s, int num) {
-	map<int, int>* buy =  books[s].first;
+	map<int, int> buy =  books[s].first;
 	long long int tt = 0;
 	for(auto it = buy.rbegin(); it!=buy.rend(); ++it){
 		if(num<it->second){
@@ -104,7 +104,7 @@ int botm(string s, int num) {
 	return tt;
 }
 int topm(string s, int num) {
-	map<int, int>* sell =  books[s].second;
+	map<int, int> sell =  books[s].second;
 	long long int tt = 0;
 	for(auto it = sell.begin(); it!=sell.end(); ++it){
 		if(num<it->second){
@@ -156,6 +156,7 @@ int tradeETF(int thresh, int num) {
 
 int fairvalueV() {
 	int fairval = fairvaluebook("VALEBZ");
+	return fairval;
 
 }
 /*vector<string> getVOrders(int id) {
