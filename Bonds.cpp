@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
                 if (!startsWith(tokens[0], {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
                     cout << line << endl;
                     if (startsWith(tokens[0], {"FILL"})) {
-                        assert(false);
                         int id = stoi(tokens[1]);
                         int sz = stoi(tokens[5]);
                         if (buys.count(id)) {
