@@ -151,8 +151,10 @@ int gETCt(int num) {
 }
 int tradeETF(int thresh, int num) {
 	int st = 1, wfb = gETCb(num), wft = gETCt(num), ETFb = botm("ETC", 10*num), ETFt = topm("ETC", 10*num);
-	if(wfb-ETFt > thresh){ return 1; } //we can sell wf for more than we can buy etf -> buy etf, sell wf
-	else if(ETFb-wft > thresh) { return -1;} //we can sell etf for more than we can buy wf ->buy wf, sell etf
+	if(!(wfb==-1 || ETFt ==-1)){
+		if(wfb-ETFt > thresh){ return 1; } //we can sell wf for more than we can buy etf -> buy etf, sell wf
+	}
+	else if((!(ETFb==-1 || wft==-1)) &&(ETFb-wft > thresh)) { return -1;} //we can sell etf for more than we can buy wf ->buy wf, sell etf
 	else{return 0; } //it doesn't meet the threshold
 }
 
