@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
             }
             vector<string> tokens = split(line, ' ');
             if (!startsWith(tokens[0], {"BOOK", "TRADE"})) {
-                cout << line << endl;
+                if (!startsWith(tokens[0], {"REJECT"})) cout << line << endl;
                 if (startsWith(tokens[0], {"FILL"})) {
                     int id = stoi(tokens[1]);
                     int sz = stoi(tokens[5]);
