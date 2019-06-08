@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
             } else if (startsWith(tokens[0], {"BOOK", "TRADE"})){
                 cout << "On the line" << line << endl;
                 parse(line);
-                int fairval = fairvaluebook(tokens[1]);
+                int fairval = tradeETF(0, 0);
                 cout << "current fair value " << fairval << endl;
                 if (fairval != -1 && (tokens[1] == "XLF")) {
                     cout << "stockToSellID" << stockToSellID[tokens[1]] << endl;
