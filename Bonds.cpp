@@ -17,15 +17,21 @@ int main(int argc, char *argv[]) {
 
     conn.send_to_exchange(string("HELLO ") + config.team_name);
     cout << conn.read_from_exchange() << endl;
-    // conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
-    // while (true) {
-    //     string line = conn.read_from_exchange();
-    //     if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) cout << line << endl;
-    // }
+    conn.send_to_exchange(string("ADD 1 BOND BUY 999 30"));
+    while (true) {
+        string line = conn.read_from_exchange();
+        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
+            cout << line << endl;
+            break;
+        }
+    }
     conn.send_to_exchange(string("ADD 2 BOND SELL 1001 30"));
     while (true) {
         string line = conn.read_from_exchange();
-        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) cout << line << endl;
+        if (!startsWith(line, {"BOOK", "TRADE", "OPEN", "CLOSE"})) {
+            cout << line << endl;
+            break;
+        }
     }
 
     // std::vector<std::string> data;
