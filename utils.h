@@ -29,20 +29,20 @@ std::string sellBond(int id, int price, int size) {
 }
 
 
-std::string buyStock(int id, int price, int size, string stock) {
+std::string buyStock(int id, int price, int size, std::string stock) {
     std::string ret = "ADD " + std::to_string(id) + " " + stock + " BUY " + std::to_string(price) + std::string(" ") + std::to_string(size);
     std::cout << ret << std::endl;
     return ret;
 }
 
-std::string sellStock(int id, int price, int size, string stock) {
+std::string sellStock(int id, int price, int size, std::string stock) {
     std::string ret = "ADD " + std::to_string(id) + " " + stock + " SELL " + std::to_string(price) + std::string(" ") + std::to_string(size);
     std::cout << ret << std::endl;
     return ret;
 }
 
 std::string cancel(int id) {
-    std::cout << "Cancelling:  " << id << endl;
-    std::string ret = std::string("CANCEL ") + std::to_string(id);
+    std::cout << "Cancelling:  " << id << std::endl;
+    std::string ret = "CANCEL " + std::to_string(id);
     return ret;
 }
