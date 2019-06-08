@@ -41,14 +41,14 @@ std::string sellStock(int id, int price, int size, std::string stock) {
     return ret;
 }
 
-std::string buyStockConvert(int id, int price, int size, std::string stock) {
-    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " BUY " + std::to_string(price) + std::string(" ") + std::to_string(size);
+std::string buyConvert(int id, int size, std::string stock) {
+    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " BUY " + std::to_string(size);
     std::cout << ret << std::endl;
     return ret;
 }
 
-std::string sellStockConvert(int id, int price, int size, std::string stock) {
-    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " SELL " + std::to_string(price) + std::string(" ") + std::to_string(size);
+std::string sellConvert(int id, int size, std::string stock) {
+    std::string ret = "CONVERT " + std::to_string(id) + " " + stock + " SELL " + std::to_string(size);
     std::cout << ret << std::endl;
     return ret;
 }
