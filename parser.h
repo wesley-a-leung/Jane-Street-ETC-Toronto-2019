@@ -21,7 +21,7 @@ pair<pair<int, int>, pair<int, int> > getsums(string s){
 	long long int tsell = 0, tbuy = 0;
 	int nsell = 0, nbuy = 0;
 	for(auto it=buy.begin(); it!=buy.end(); ++it) {
-		tbuy+= (it->second)*(it->first); nsell +=it->second;
+		tbuy+= (it->second)*(it->first); nbuy +=it->second;
 	}
 	for(auto it=sell.begin(); it!=sell.end(); ++it) {
 		tsell+= (it->second)*(it->first); nsell +=it->second;
