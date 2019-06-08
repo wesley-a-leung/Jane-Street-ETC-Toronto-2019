@@ -1,0 +1,110 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, pair<map<int, int>, map<int, int> > > books;
+map<string, vector<pair<int, int> > > trades;
+map<string, bool> open;
+
+int getvl(string s, int ind){
+	int a = 0;
+	for(int i = ind; i<s.size(); i++){
+		if(s[i]<'0' || s[i]>'9') return a;
+		else{ a = a*10 + s[i]-'0';}
+	}
+	return a;
+}
+pair<int, int> addp(string vl) {
+	for(int i = 0; i<vl.size(); i++){
+		if(vl[i]==':') {
+			return {getvl(vl, 0), getvl(vl, i+1)};
+		}
+	}
+	return {0, 0};
+}
+
+void buy(vector<string> vect, string s, int ind) {
+	for(int i = ind; i<vect.size(); i++){
+		if(vect[i]=="SELL") {
+			return;
+		}
+		else{
+			pair<int, int> tmp = addp(vect[i]);
+			(books[s].first)[tmp.first]+=tmp.second;
+			//cout<<"BUY: "<<addp(vect[i]).first<<" "<<addp(vect[i]).second<<'\n';
+		}
+	}
+}
+
+void sell(vector<string> vect, string s, int ind) {
+	for(int i = ind; i<vect.size(); i++){
+		pair<int, int> tmp = addp(vect[i]);
+		(books[s].second)[tmp.first]+=tmp.second;
+		//cout<<addp(vect[i]).first<<" "<<addp(vect[i]).second<<'\n';
+	}
+}
+
+void mkopen(vector<string> vect, int ind, bool vl) {
+	for(int i = ind; i<vect.size(); i++) {
+		open[vect[i]] = vl;
+	}
+}
+
+void parse(string s){
+ 	istringstream iss(s);
+	vector<string> results((istream_iterator<string>(iss)),
+                                 istream_iterator<string>());
+    if(results[0]=="BOOK"){
+    	//cout<<results.size();
+    	((books[results[1]]).first).clear();
+    	((books[results[1]]).second).clear();
+    	for(int i = 2; i<results.size(); i++){
+    		cout<<results[i]<<'\n';
+    		if(results[i]=="BUY") {
+    			buy(results, results[1], i+1);
+
+    		}
+    		else if(results[i]=="SELL") {
+    			sell(results, results[1], i+1);
+    		}
+    	}
+    }
+
+    if(results[0]=="TRADE") {
+    	trades[results[1]].push_back({getvl(results[2], 0), getvl(results[3], 0)});
+    }
+    if(results[0]=="OPEN") {
+    	mkopen(results, 1, 1);
+    }
+    if(results[0]=="CLOSE") {
+    	mkopen(results, 1, 0);
+    }
+
+
+    return;
+}
+
+/*if(valbz[1]<vale[0]) {
+	buy valbz, sell vale
+}
+if(vale[1]<valbz[0]) {
+	buy vale, sell valebz
+}*/
+int main() {
+	string curr;
+	getline(cin, curr);
+	parse(curr);
+	getline(cin, curr);
+	parse(curr);
+	cout<<"dn\n";
+	for(auto it = books.begin(); it!=books.end(); ++it){
+		cout<<it->first<<'\n';
+		for(auto it2 = ((it->second).first).begin(); it2!=((it->second).first).end(); ++it2){
+			cout<<it2->first<<" "<<it2->second<<'\n';
+		}
+		cout<<"SELL\n";
+		for(auto it2 = ((it->second).second).begin(); it2!=((it->second).second).end(); ++it2){
+			cout<<it2->first<<" "<<it2->second<<'\n';
+		}
+	}
+	return 0;
+}
