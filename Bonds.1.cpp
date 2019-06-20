@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
                     }
-                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 50, tokens[1]));
+                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 5, tokens[1]));
                     stockToSellID[tokens[1]] = currentId;
                     currentId++;
 
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
                     if (stockToBuyID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
                     }
-                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 50, tokens[1]));
+                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 5, tokens[1]));
                     stockToBuyID[tokens[1]] = currentId;
                     currentId++;
                 } else if (fairval != -1 && tokens[1] == "XLF") {
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
                     if (stockToSellID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToSellID[tokens[1]]));
                     }
-                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 50, tokens[1]));
+                    conn.send_to_exchange(sellStock(currentId, (int) fairval * (1 + tol), 5, tokens[1]));
                     stockToSellID[tokens[1]] = currentId;
                     currentId++;
 
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
                     if (stockToBuyID[tokens[1]]) {
                         conn.send_to_exchange(cancel(stockToBuyID[tokens[1]]));
                     }
-                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 50, tokens[1]));
+                    conn.send_to_exchange(buyStock(currentId, (int) fairval * (1 - tol), 5, tokens[1]));
                     stockToBuyID[tokens[1]] = currentId;
                     currentId++;
                 }
